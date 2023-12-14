@@ -1,0 +1,114 @@
+{% extends base %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <b>Categories</b>
+    <table>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Parent category</th>
+        <th>Courses</th>
+    {% categories_list : for category in categories %}
+        <tr>
+            <td class="data_td">{{ category.id }}</td>
+            <td class="data_td">{{ category.name }}</td>
+            <td class="data_td">{{ category.get_category }}</td>
+            <td class="data_td">{{ category.courses_count }}</td>
+            <td><a href="{{ base_url }}categories/edit/?category_id={{ category.id }}">Edit</a></td>
+            <td><a href="{{ base_url }}categories/delete/?category_id={{ category.id }}">Delete</a></td>
+        </tr>
+    {% endfor categories_list %}
+    </table>
+
+    <a href="{{ base_url }}categories/create/">Create category</a>
+
+    <b>Courses</b>
+    <table>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Address</th>
+        <th>Platform</th>
+        <th>Students</th>
+    {% courses_list : for course in courses %}
+        <tr>
+            <td class="data_td">{{ course.id }}</td>
+            <td class="data_td">{{ course.name }}</td>
+            <td class="data_td">{{ course.type_ }}</td>
+            <td class="data_td">{{ course.category_name }}</td>
+            {% address_if : if {{ course.type_ }} == offline %}
+            <td class="data_td">{{ course.address }}</td>
+            <td class="data_td">-</td>
+            {% else %}
+            <td class="data_td">-</td>
+            <td class="data_td">{{ course.platform }}</td>
+            {% endif address_if %}
+            <td class="data_td">{{ course.student_count }}</td>
+            <td><a href="{{ base_url }}courses/edit/?course_id={{ course.id }}">Edit</a></td>
+            <td><a href="{{ base_url }}courses/copy/?course_id={{ course.id }}">Copy</a></td>
+            <td><a href="{{ base_url }}courses/delete/?course_id={{ course.id }}">Delete</a></td>
+        </tr>
+    {% endfor courses_list %}
+    </table>
+
+    <a href="{{ base_url }}courses/create/">Create course</a>
+
+    <b>Students</b>
+    <table>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Courses</th>
+    {% students_list : for user in students %}
+        <tr>
+            <td class="data_td">{{ user.id }}</td>
+            <td class="data_td">{{ user.username }}</td>
+            <td class="data_td">{{ user.course_count }}</td>
+            <td><a href="{{ base_url }}users/courses/?user_id={{ user.id }}">Add course</a></td>
+            <td><a href="{{ base_url }}users/edit/?user_id={{ user.id }}">Edit</a></td>
+            <td><a href="{{ base_url }}users/delete/?user_id={{ user.id }}">Delete</a></td>
+        </tr>
+    {% endfor students_list %}
+    </table>
+    <br>
+    <b>Teachers</b>
+    <table>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Courses</th>
+    {% teachers_list : for user in teachers %}
+        <tr>
+            <td class="data_td">{{ user.id }}</td>
+            <td class="data_td">{{ user.username }}</td>
+            <td class="data_td">{{ user.course_count }}</td>
+            <td><a href="{{ base_url }}users/courses/?user_id={{ user.id }}">Add course</a></td>
+            <td><a href="{{ base_url }}users/edit/?user_id={{ user.id }}">Edit</a></td>
+            <td><a href="{{ base_url }}users/delete/?user_id={{ user.id }}">Delete</a></td>
+        </tr>
+    {% endfor teachers_list %}
+    </table>
+    <br>
+    <b>Admins</b>
+    <table>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Courses</th>
+    {% admins_list : for user in admins %}
+        <tr>
+            <td class="data_td">{{ user.id }}</td>
+            <td class="data_td">{{ user.username }}</td>
+            <td class="data_td">{{ user.course_count }}</td>
+            <td><a href="{{ base_url }}users/courses/?user_id={{ user.id }}">Add course</a></td>
+            <td><a href="{{ base_url }}users/edit/?user_id={{ user.id }}">Edit</a></td>
+            <td><a href="{{ base_url }}users/delete/?user_id={{ user.id }}">Delete</a></td>
+        </tr>
+    {% endfor admins_list %}
+    </table>
+
+    <a href="{{ base_url }}users/create">Create user</a>
+</div>
+{% endblock content %}

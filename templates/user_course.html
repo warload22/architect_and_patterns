@@ -1,0 +1,22 @@
+{% extends base %}
+
+{% block title %}
+Add user to course
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+    <p>Please select courses for {{ user.username }}</p>
+        <input type="hidden" name="user_id" value="{{ user.id }}">
+        <select name="course_id">
+            {% courses_list : for course in courses %}
+            <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor courses_list %}
+        </select>
+        <select name="notification_method">
+            <option value="email" selected>Email</option>
+            <option value="sms">SMS</option>
+        </select>
+        <input type="submit">
+</form>
+{% endblock content %}

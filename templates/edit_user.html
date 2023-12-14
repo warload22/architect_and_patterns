@@ -1,0 +1,22 @@
+{% extends base %}
+
+{% block title %}
+Edit user
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+        <input type="hidden" name="user_id" value="{{ user.id }}">
+        <input type="text" placeholder="username" name="username" value="{{ user.username }}">
+        <select name="type">
+            {% types_list : for type in types %}
+            {% type_if : if {{ user.type_ }} == {{ type }} %}
+            <option value="{{ type }}" selected>{{ type }}</option>
+            {% else %}
+            <option value="{{ type }}">{{ type }}</option>
+            {% endif type_if %}
+            {% endfor types_list %}
+        </select>
+        <input type="submit">
+</form>
+{% endblock content %}

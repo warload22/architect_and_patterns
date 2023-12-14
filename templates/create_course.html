@@ -1,0 +1,35 @@
+{% extends base %}
+
+{% block title %}
+Create course
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+        <input type="text" placeholder="name" name="name">
+        <select name="category_id">
+            {% categories_list : for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor categories_list %}
+        </select>
+        <select name="type" id="type">
+            {% types_list : for type in types %}
+            <option value="{{ type }}">{{ type }}</option>
+            {% endfor types_list %}
+        </select>
+        <input type="text" placeholder="address" name="address" id="address">
+        <input type="submit">
+</form>
+<script>
+    document.getElementById('type').addEventListener('change', (event) => {
+        let target = event.target;
+        if(target.value == 'offline') {
+            target.insertAdjacentHTML('afterend', '<input type="text" placeholder="address" name="address" id="address">');
+            document.getElementById('platform').remove();
+        } else if(target.value == 'online') {
+            target.insertAdjacentHTML('afterend', '<input type="text" placeholder="platform" name="platform" id="platform">');
+            document.getElementById('address').remove();
+        }
+    });
+</script>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends base %}
+
+{% block title %}
+Create user
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+        <input type="text" placeholder="username" name="username">
+        <select name="type">
+            {% types_list : for type in types %}
+            <option value="{{ type }}">{{ type }}</option>
+            {% endfor types_list %}
+        </select>
+        <input type="submit">
+</form>
+{% endblock content %}
